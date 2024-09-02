@@ -19,6 +19,6 @@ namespace MVCDemo.DAL.Data
         {
             modelBuilder.ApplyConfiguration<Department>(new DepartmentConfiguration());
         }
-        public DbSet<Department> Department { get; set; }
+        //public DbSet<Department> Department { get; set; }
     }
 }
