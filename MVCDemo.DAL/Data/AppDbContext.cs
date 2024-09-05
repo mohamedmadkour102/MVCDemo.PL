@@ -9,16 +9,21 @@ using System.Threading.Tasks;
 
 namespace MVCDemo.DAL.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server = . ;Database = MVCProject ; Trusted_Connection = True");
+
         }
+        
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server = . ;Database = MVCProject ; Trusted_Connection = True");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration<Department>(new DepartmentConfiguration());
         }
-        //public DbSet<Department> Department { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

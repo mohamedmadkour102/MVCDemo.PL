@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using MVCDemo.BLL.Interfaces;
+using MVCDemo.BLL.Repositories;
+using MVCDemo.DAL.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +29,15 @@ namespace MVCDemo.PL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //services.AddSingleton<AppDbContext>(); 
+            // services.AddScoped<AppDbContext>();
+            //services.AddTransient<AppDbContext>();
+            services.AddDbContext<AppDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));       
+            
+            }); //default scoped
+
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
